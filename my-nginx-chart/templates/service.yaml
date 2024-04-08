@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "my-nginx-chart.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "my-nginx-chart.name" . }}
+    helm.sh/chart: {{ include "my-nginx-chart.chart" . }}
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  {{- if eq .Values.service.type "NodePort" }}
+  type: NodePort
+  {{- if .Values.service.nodePort }}
+  nodePort: {{ .Values.service.nodePort }}
+  {{- end }}
+  {{- else }}
+  type: ClusterIP
+  {{- end }}
+

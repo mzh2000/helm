@@ -1,0 +1,20 @@
+# values.yaml
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  tag: latest
+
+service:
+  type: ClusterIP
+  nodePort: 32003
+
+ingress:
+  enabled: true
+  hostname: nginx.mzh.com
+  path: /
+
+tls:
+  enabled: false
+
