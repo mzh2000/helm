@@ -6,6 +6,9 @@ metadata:
     app.kubernetes.io/name: {{ include "my-nginx-chart.name" . }}
     helm.sh/chart: {{ include "my-nginx-chart.chart" . }}
 spec:
+  selector:
+    app.kubernetes.io/name: {{ include "my-nginx-chart.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
   ports:
     - protocol: TCP
       port: 80
@@ -15,6 +18,9 @@ spec:
   {{- if .Values.service.nodePort }}
   nodePort: {{ .Values.service.nodePort }}
   {{- end }}
+  {{- else if eq .Values.service.type "LoadBalancer" }}
+  type: LoadBalancer
+  # 可添加其他 LoadBalancer 配置
   {{- else }}
   type: ClusterIP
   {{- end }}
