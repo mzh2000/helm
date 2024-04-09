@@ -15,6 +15,20 @@ ingress:
   hostname: nginx.mzh.com
   path: /
 
+# values.yaml
+
+serviceAccount:
+  create: false
+
+# values.yaml
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 70
+
 tls:
   enabled: false
 
